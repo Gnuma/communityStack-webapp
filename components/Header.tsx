@@ -8,7 +8,10 @@ export default function Header() {
   return (
     <div className="header">
       <NextLink href="../pages/index">
-        <a className="uppercase header-title">react native stack</a>
+        <a className="uppercase header-title">
+          <img alt="RNS" src="/media/Logo.svg" />
+          react native stack
+        </a>
       </NextLink>
       <div className="main-inner-header">
         <Link
@@ -58,6 +61,11 @@ export default function Header() {
           color: ${colors.BLACK};
           box-sizing: border-box;
           text-decoration: none;
+          display: flex;
+          align-items: center;
+        }
+        .header-title > img {
+          margin-right: 14px;
         }
 
         .main-inner-header {
