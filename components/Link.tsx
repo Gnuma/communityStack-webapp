@@ -49,7 +49,7 @@ const Link: FunctionComponent<LinkProps> = ({
 const SIZE_VALUE = {
   s: "12px",
   m: "14px",
-  l: "16px"
+  l: "18px"
 };
 
 export default Link;

@@ -19,6 +19,7 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
             padding: 0;
             color: ${colors.BLACK};
             font-family: "Roboto", sans-serif;
+            box-sizing: content-box;
           }
           .content {
             min-height: 100vh;
