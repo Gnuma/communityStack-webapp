@@ -17,21 +17,21 @@ export default function Header() {
         <Link
           content="home"
           color={colors.BLACK}
-          href="#"
+          href="/"
           size="l"
           style={{ margin: "0px 40px 0px 40px" }}
         />
         <Link
           content="about"
           color={colors.BLACK}
-          href="#"
+          href="/about"
           size="l"
           style={{ margin: "0px 40px 0px 40px" }}
         />
         <Link
-          content="contributions"
+          content="contributors"
           color={colors.BLACK}
-          href="#"
+          href="/contributors"
           size="l"
           style={{ margin: "0px 40px 0px 40px" }}
         />
