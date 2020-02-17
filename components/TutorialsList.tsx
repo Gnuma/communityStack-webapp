@@ -21,7 +21,8 @@ export const TutorialsList: FunctionComponent<TutorialsListProps> = ({
       <style jsx>
         {`
           .tutorials-list {
-            width: 800px;
+            max-width: 800px;
+            width: calc(100vw - 50px);
             display: flex;
             flex-direction: column;
           }

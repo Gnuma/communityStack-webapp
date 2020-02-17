@@ -36,7 +36,7 @@ const TutorialLink: FunctionComponent<TutorialLinkProps> = ({
       </div>
       <style jsx>{`
         .tutorial-container {
-          width: 800px;
+          display: block;
         }
 
         .tutorial-header,
@@ -93,6 +93,8 @@ const TutorialLink: FunctionComponent<TutorialLinkProps> = ({
         }
 
         .tutorial-content > h2 {
+          position: relative;
+          z-index: 1;
           box-sizing: border-box;
           margin: 0;
           overflow: hidden;
@@ -101,9 +103,12 @@ const TutorialLink: FunctionComponent<TutorialLinkProps> = ({
           -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
           line-height: 30px;
+          color: ${colors.PRIMARY_BLUE};
         }
 
         .tutorial-content > p {
+          position: relative;
+          z-index: 1;
           margin: 0;
           padding-top: 10px;
           overflow: hidden;
@@ -126,6 +131,7 @@ const TutorialLink: FunctionComponent<TutorialLinkProps> = ({
         }
 
         .tutorial-content > span {
+          z-index: 0;
           font-size: 15px;
           text-transform: uppercase;
           font-weight: 400;
@@ -133,7 +139,7 @@ const TutorialLink: FunctionComponent<TutorialLinkProps> = ({
           letter-spacing: 0.1em;
           position: absolute;
           right: 15px;
-          top: calc(160px - 34px);
+          bottom: 15px;
           color: ${colors.WHITE};
         }
 
