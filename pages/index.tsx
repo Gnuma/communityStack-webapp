@@ -1,16 +1,24 @@
 import React from "react";
 import MainLayout from "../layouts/MainLayout";
 import { NextPage } from "next";
+import Link from "next/link";
 import { Category } from "../utils/types";
 import axios from "axios";
 import { CATEGORIES_RETRIEVE } from "../utils/endpoints";
+import Button from "../components/Button";
 
 const Index: NextPage<{ categories: Category[] }> = ({ categories }) => {
   return (
     <MainLayout>
-      {categories.map(item => {
-        return <span key={item.id}>{item.name}</span>;
-      })}
+      <div>
+        {categories.map(item => {
+          return (
+            <Link key={item.id} href={`categories/${item.id}`}>
+              <Button>{item.name}</Button>
+            </Link>
+          );
+        })}
+      </div>
     </MainLayout>
   );
 };

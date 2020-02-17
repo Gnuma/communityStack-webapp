@@ -7,7 +7,7 @@ import Button from "./Button";
 export default function Header() {
   return (
     <div className="header">
-      <NextLink href="../pages/index">
+      <NextLink href="/">
         <a className="uppercase header-title">
           <img alt="RNS" src="/media/Logo.svg" />
           react native stack
