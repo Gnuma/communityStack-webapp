@@ -23,6 +23,9 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
           }
           .content {
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
           }
 
           .uppercase {
