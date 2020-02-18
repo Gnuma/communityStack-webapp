@@ -2,6 +2,7 @@ import React, { FunctionComponent, CSSProperties } from "react";
 import * as colors from "../utils/colors";
 import { Tutorial, User } from "../utils/types";
 import { H5, H4 } from "./Text";
+import UserPic from "./UserPic";
 
 interface TutorialLinkProps {
   tutorial: Tutorial;
@@ -16,7 +17,11 @@ const TutorialLink: FunctionComponent<TutorialLinkProps> = ({
     <div className="tutorial-container" style={containerStyle}>
       <div className="tutorial-header">
         <div className="tutorial-author">
-          <img src={tutorial.author_img} alt="" />
+          <UserPic
+            url={tutorial.author_img}
+            name={tutorial.author_name}
+            style={{ marginRight: 10 }}
+          />
           <H4>{tutorial.author_name}</H4>
         </div>
         <H5>{tutorial.time_reading} min read</H5>
