@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { NextPage } from "next";
 import Link from "next/link";
@@ -6,19 +6,13 @@ import { Category } from "../utils/types";
 import axios from "axios";
 import { CATEGORIES_RETRIEVE } from "../utils/endpoints";
 import Button from "../components/Button";
+import CategoriesMenu from "../components/CategoriesMenu";
 
 const Index: NextPage<{ categories: Category[] }> = ({ categories }) => {
+  console.log("Render");
   return (
     <MainLayout>
-      <div>
-        {categories.map(item => {
-          return (
-            <Link key={item.id} href={`categories/${item.id}`}>
-              <Button>{item.name}</Button>
-            </Link>
-          );
-        })}
-      </div>
+      <CategoriesMenu data={categories} />
     </MainLayout>
   );
 };
@@ -34,3 +28,22 @@ Index.getInitialProps = async () => {
 };
 
 export default Index;
+
+const MockCategories: Category[] = [
+  {
+    id: 1,
+    name: "Primo"
+  },
+  {
+    id: 2,
+    name: "Secondo"
+  },
+  {
+    id: 2,
+    name: "Secondo"
+  },
+  {
+    id: 2,
+    name: "Secondo"
+  }
+];
