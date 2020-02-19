@@ -22,15 +22,29 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
             box-sizing: content-box;
           }
           .content {
+            margin-top:50px;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            flex-direction: row;
           }
 
           .uppercase {
             text-transform: uppercase;
             letter-spacing: 0.1em;
+          }
+
+          .title {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: ${colors.PRIMARY_BLUE};
+            font-size: 24px;
+          }
+
+          .subtitle {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: ${colors.PRIMARY_BLUE};
+            font-size: 20px;
           }
         `}
       </style>

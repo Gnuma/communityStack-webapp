@@ -12,12 +12,16 @@ export interface Topic {
 }
 
 export interface User {
+  id: number;
   email: string;
   username: string;
+  contributions: number;
+  last_contribution: string;
   is_verified: boolean;
   is_anonymous: boolean;
   created_at: string;
 }
+
 
 export interface Tutorial {
   id: number;
@@ -32,3 +36,4 @@ export interface Tutorial {
   user: User;
   topic: Topic;
 }
+
