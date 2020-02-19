@@ -21,3 +21,19 @@ export interface User {
   is_anonymous: boolean;
   created_at: string;
 }
+
+
+export interface Tutorial {
+  id: number;
+  title: string;
+  abstract: string;
+  time_reading: number;
+  link: string;
+  author_name: string;
+  author_img: string;
+  last_updated: string;
+  created_at: string;
+  user: User;
+  topic: Topic;
+}
+
