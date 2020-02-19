@@ -1,15 +1,16 @@
 import React from "react";
 import { NextPage } from "next";
-import { Topic } from "../../utils/types";
+import { Topic, GeneralData } from "../../utils/types";
 import axios from "axios";
 import { TOPICS_RETRIEVE } from "../../utils/endpoints";
 import MainLayout from "../../layouts/MainLayout";
 import MenuLayout from  "../../layouts/MenuLayout";
+import SearchComponent from "../../components/Search"
 
-const Category: NextPage<{topics : Topic[]}> = ({topics}) => {
+const Category: NextPage<{topics : GeneralData[]}> = ({topics}) => {
   return (
     <MainLayout>
-        <MenuLayout topics = {topics}/>
+      <SearchComponent layout={MenuLayout} data = {topics}/>
     </MainLayout>
   );
 };
@@ -21,6 +22,8 @@ Category.getInitialProps = async ({query}) => {
     try{
         result = (await axios.get(TOPICS_RETRIEVE + topic)).data
     }catch(err){}
+
+
     return {
         topics : result
     };

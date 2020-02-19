@@ -1,23 +1,27 @@
 import React, { FunctionComponent } from "react";
 import { Topic } from "../utils/types";
 import * as colors from "../utils/colors";
+import { GeneralData } from "../utils/types";
 
 interface MenuLayoutProps {
-  topics: Topic[];
+  data: GeneralData[];
+  keyword: string;
 }
 
-const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
+const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ data, keyword }) => {
   return (
     <div className="main-menu-container w3-animate-fading">
-      {topics.map(topic => {
-        console.log(topic);
+      {
+        data.map(topic => {
         return (
           <div className="menu-item">
-            <span className="uppercase item-title">{topic.name}</span>
-            <span className="topic-description">{topic.description}</span>
+            <span className="uppercase item-title">{(topic as Topic).name}</span>
+            <span className="topic-description">{(topic as Topic).description}</span>
           </div>
         );
       })}
+
+      {console.log(keyword)}
       <style jsx>
         {`
           .main-menu-container {

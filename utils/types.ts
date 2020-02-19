@@ -1,3 +1,5 @@
+import MenuLayout from "../layouts/MenuLayout";
+
 export interface Category {
   id: number;
   name: string;
@@ -21,3 +23,11 @@ export interface User {
   is_anonymous: boolean;
   created_at: string;
 }
+
+/*
+  Aggiungere tutti i tipi di layout
+*/
+
+export type GeneralLayout = typeof MenuLayout;
+
+export type GeneralData = User | Topic | Category;
