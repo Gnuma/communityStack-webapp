@@ -21,7 +21,6 @@ const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
       <style jsx>
         {`
           .main-menu-container {
-            margin-top: 50px;
             padding: 10px;
             display: flex;
             flex-direction: row;
