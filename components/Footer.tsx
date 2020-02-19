@@ -8,9 +8,13 @@ export default function Footer() {
       <span className="footer-title uppercase">
         React native stack. all rights reserved.
       </span>
-      <Link style={{ padding: "6px" }} href="#" content="Home" />
-      <Link style={{ padding: "6px" }} href="/index" content="about" />
-      <Link style={{ padding: "6px" }} href="#" content="contributions" />
+      <Link style={{ padding: "6px" }} href="/" content="Home" />
+      <Link style={{ padding: "6px" }} href="/about" content="about" />
+      <Link
+        style={{ padding: "6px" }}
+        href="/contributors"
+        content="contributors"
+      />
       <style jsx>{`
         .footer {
           width: 100vw;

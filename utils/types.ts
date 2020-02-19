@@ -31,3 +31,18 @@ export interface User {
 export type GeneralLayout = typeof MenuLayout;
 
 export type GeneralData = User | Topic | Category;
+
+export interface Tutorial {
+  id: number;
+  title: string;
+  abstract: string;
+  time_reading: number;
+  link: string;
+  author_name: string;
+  author_img: string;
+  last_updated: string;
+  created_at: string;
+  user: User;
+  topic: Topic;
+}
+
