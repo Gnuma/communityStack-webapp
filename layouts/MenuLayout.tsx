@@ -9,8 +9,8 @@ interface MenuLayoutProps {
 const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
   return (
     <div className="main-menu-container w3-animate-fading">
-      {topics.map(topic => {
-        console.log(topic);
+      {
+        topics.map(topic => {
         return (
           <div className="menu-item">
             <span className="uppercase item-title">{topic.name}</span>

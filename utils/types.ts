@@ -1,3 +1,5 @@
+import MenuLayout from "../layouts/MenuLayout";
+
 export interface Category {
   id: number;
   name: string;
@@ -21,7 +23,6 @@ export interface User {
   is_anonymous: boolean;
   created_at: string;
 }
-
 
 export interface Tutorial {
   id: number;
