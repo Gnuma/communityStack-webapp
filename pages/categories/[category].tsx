@@ -10,17 +10,14 @@ import {search_topics} from "../../utils/search_index";
 
 
 const Category: NextPage<{topics : Topic[]}> = ({topics}) => {
-
-  const [internal_topics, setTopics] = useState(topics);
   const [keyword, setKeyword] = useState("");
   search_topics.addDocuments(topics);
+  topics = !keyword ? topics : search_topics.search(keyword) as Topic[];
 
   const FilterTopics = (e : React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.value == ""){
-      setTopics(topics);
+    if(e.target.value === ""){
       setKeyword("");
     }else{
-      setTopics(search_topics.search(e.target.value) as Topic []);
       setKeyword(e.target.value);
     }
   }
@@ -28,7 +25,7 @@ const Category: NextPage<{topics : Topic[]}> = ({topics}) => {
   return (
     <MainLayout> 
       <SearchLayout callback = {FilterTopics} keyword = {keyword}>
-        <MenuLayout topics = {internal_topics} />
+        <MenuLayout topics = {topics} />
       </SearchLayout>
     </MainLayout>
   );
