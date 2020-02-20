@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Fragment } from "react";
+import React, { FunctionComponent, useState } from "react";
 import * as colors from "../utils/colors";
 import { Category } from "../utils/types";
 import Button from "./Button";
@@ -11,11 +11,16 @@ interface CategoriesMenuProps {
   data: Category[];
 }
 
+//<Logo x={p.x} y={SIZE - p.y} fill={false} />
+
 const RADIUS = 200;
 const BUTTON_WIDTH = 200;
 const BUTTON_HEIGHT = 46;
+const BUTTON_DIAGONAL = Math.sqrt(
+  Math.pow(BUTTON_WIDTH, 2) + Math.pow(BUTTON_HEIGHT, 2)
+);
 const SIZE = RADIUS * 2;
-const BUTTON_OFFSET = 35;
+const BUTTON_OFFSET = 30;
 const PADDING = 15;
 
 const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
@@ -32,11 +37,31 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
 
   return (
     <div className="categories-container">
-      <svg width={SIZE} height={SIZE} className="svg-canvas">
-        {coordinates.map((item, index) => {
-          const p: PointType = getXYFromCenter(center, item);
-          return (
-            <Fragment key={data[index].id}>
+      {coordinates.map((item, index) => {
+        const p: PointType = getXYFromCenter(center, item);
+        const bP = { ...p };
+        bP.x -= BUTTON_WIDTH / 2;
+        bP.y -= BUTTON_HEIGHT / 2;
+        const cosTheta = Math.cos(item.theta);
+        const sinTheta = Math.sin(item.theta);
+        bP.x += cosTheta * (BUTTON_WIDTH / 2 + BUTTON_OFFSET);
+        bP.y += sinTheta * (BUTTON_HEIGHT / 2 + BUTTON_OFFSET);
+        /*--Bad Math
+        const cosSign = Math.sign(cosTheta);
+        const sinSign = Math.sign(sinTheta);
+        const rectTrig = Math.min(Math.abs(cosTheta), Math.abs(sinTheta));
+        bP.x += cosSign * rectTrig * ((BUTTON_DIAGONAL - BUTTON_WIDTH) / 2);
+        bP.y += sinSign * rectTrig * ((BUTTON_DIAGONAL - BUTTON_HEIGHT) / 2);
+        --Bad Math */
+
+        return (
+          <div>
+            <svg
+              width={SIZE}
+              height={SIZE}
+              className="svg-canvas"
+              key={data[index].id}
+            >
               <line
                 x1={p.x}
                 y1={SIZE - p.y}
@@ -46,30 +71,17 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
                 strokeWidth={2}
               />
               <Logo x={p.x} y={SIZE - p.y} fill={false} />
-            </Fragment>
-          );
-        })}
-        <Logo x={center.x} y={SIZE - center.y} />
-      </svg>
-      {coordinates.map((item, index) => {
-        const p: PointType = getXYFromCenter(center, item);
-
-        p.x -= BUTTON_WIDTH / 2;
-        p.y -= BUTTON_HEIGHT / 2;
-        p.x += Math.cos(item.theta) * (BUTTON_WIDTH / 2 + BUTTON_OFFSET);
-        p.y += Math.sin(item.theta) * (BUTTON_HEIGHT / 2 + BUTTON_OFFSET);
-
-        return (
-          <Link href={`/categories/${data[index].id}`} key={data[index].id}>
+            </svg>
             <button
-              className="category-button"
-              style={{ position: "absolute", left: p.x, bottom: p.y }}
+              className="category-button uppercase"
+              style={{ position: "absolute", left: bP.x, bottom: bP.y }}
             >
               {data[index].name}
             </button>
-          </Link>
+          </div>
         );
       })}
+      <Logo x={center.x} y={SIZE - center.y} />
 
       <style jsx>
         {`
@@ -94,13 +106,15 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
             background-color: red;
           }
           .category-button {
+            z-index: -1;
             transition: 0.3s;
             border: solid 2px ${colors.PRIMARY_BLUE};
             width: ${BUTTON_WIDTH}px;
             height: ${BUTTON_HEIGHT}px;
-            border-radius: 6px;
+            //border-radius: 100%;
             color: ${colors.PRIMARY_BLUE};
-            background-color: ${colors.WHITE};
+            //background-color: ${colors.WHITE};
+            background-color: transparent;
             transition: 0.2s;
             font-size: 16px;
             box-sizing: border-box;

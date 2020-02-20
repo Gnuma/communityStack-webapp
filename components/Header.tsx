@@ -29,9 +29,9 @@ export default function Header() {
           style={{ margin: "0px 40px 0px 40px" }}
         />
         <Link
-          content="contributors"
+          content="contributions"
           color={colors.BLACK}
-          href="/contributors"
+          href="/contributions"
           size="l"
           style={{ margin: "0px 40px 0px 40px" }}
         />

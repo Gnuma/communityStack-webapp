@@ -45,5 +45,9 @@ const MockCategories: Category[] = [
   {
     id: 2,
     name: "Secondo"
+  },
+  {
+    id: 2,
+    name: "Secondo"
   }
 ];
