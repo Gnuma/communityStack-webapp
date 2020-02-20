@@ -106,7 +106,6 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
             background-color: red;
           }
           .category-button {
-            z-index: -1;
             transition: 0.3s;
             border: solid 2px ${colors.PRIMARY_BLUE};
             width: ${BUTTON_WIDTH}px;
