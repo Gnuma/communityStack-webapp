@@ -1,10 +1,16 @@
 import React, { FunctionComponent, useState } from "react";
 import * as colors from "../utils/colors";
-import { GeneralLayout, GeneralData } from "../utils/types"
 
-const SearchComponent: FunctionComponent<{layout: GeneralLayout, data: GeneralData[]}> = ({ layout, data }) => {
-  const [keyword, setKeyword] = useState("");
+interface SearchLayoutProps {
+  callback: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  keyword: string;
+}
 
+const SearchLayout: FunctionComponent<SearchLayoutProps> = ({
+  children,
+  callback,
+  keyword
+}) => {
   return (
     <div>
       <div className="search-div">
@@ -15,10 +21,10 @@ const SearchComponent: FunctionComponent<{layout: GeneralLayout, data: GeneralDa
             className="search-field"
             placeholder="Filter here..."
             value={keyword}
-            onChange={event => setKeyword(event.target.value)}
+            onChange={callback}
           />
         </form>
-        {React.createElement(layout, {data : data, keyword : keyword})}
+        {children}
       </div>
       <style jsx>
         {`
@@ -51,4 +57,4 @@ const SearchComponent: FunctionComponent<{layout: GeneralLayout, data: GeneralDa
   );
 };
 
-export default SearchComponent;
+export default SearchLayout;

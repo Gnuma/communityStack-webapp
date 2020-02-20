@@ -24,14 +24,6 @@ export interface User {
   created_at: string;
 }
 
-/*
-  Aggiungere tutti i tipi di layout
-*/
-
-export type GeneralLayout = typeof MenuLayout;
-
-export type GeneralData = User | Topic | Category;
-
 export interface Tutorial {
   id: number;
   title: string;
