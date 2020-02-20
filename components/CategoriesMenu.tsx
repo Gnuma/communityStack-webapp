@@ -55,13 +55,8 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
         --Bad Math */
 
         return (
-          <div>
-            <svg
-              width={SIZE}
-              height={SIZE}
-              className="svg-canvas"
-              key={data[index].id}
-            >
+          <div key={data[index].id}>
+            <svg width={SIZE} height={SIZE} className="svg-canvas">
               <line
                 x1={p.x}
                 y1={SIZE - p.y}
@@ -72,12 +67,14 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
               />
               <Logo x={p.x} y={SIZE - p.y} fill={false} />
             </svg>
-            <button
-              className="category-button uppercase"
-              style={{ position: "absolute", left: bP.x, bottom: bP.y }}
-            >
-              {data[index].name}
-            </button>
+            <Link href={`categories/${data[index].id}`}>
+              <button
+                className="category-button uppercase"
+                style={{ position: "absolute", left: bP.x, bottom: bP.y }}
+              >
+                {data[index].name}
+              </button>
+            </Link>
           </div>
         );
       })}
@@ -89,7 +86,7 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
             width: ${SIZE}px;
             height: ${SIZE}px;
             position: relative;
-            margin-top: 100px;
+            margin: auto;
           }
           .svg-canvas {
             position: absolute;

@@ -1,60 +1,65 @@
-import React from "react";
-import { default as NextLink } from "next/link";
-import Link from "../components/Link";
+import React, { useState } from "react";
+import Link from "next/link";
 import * as colors from "../utils/colors";
 import Button from "./Button";
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="header">
-      <NextLink href="/">
+      <Link href="/">
         <a className="uppercase header-title">
           <img alt="RNS" src="/media/Logo.svg" />
           react native stack
         </a>
-      </NextLink>
-      <div className="main-inner-header">
-        <Link
-          content="home"
-          color={colors.BLACK}
-          href="/"
-          size="l"
-          style={{ margin: "0px 40px 0px 40px" }}
-        />
-        <Link
-          content="about"
-          color={colors.BLACK}
-          href="/about"
-          size="l"
-          style={{ margin: "0px 40px 0px 40px" }}
-        />
-        <Link
-          content="contributions"
-          color={colors.BLACK}
-          href="/contributions"
-          size="l"
-          style={{ margin: "0px 40px 0px 40px" }}
-        />
+      </Link>
+      <button
+        onClick={() => setIsOpen(true)}
+        style={{ padding: "10px" }}
+        className="open-menu"
+      >
+        <img src="media/menu.svg" alt="MENU" />
+      </button>
+      <div className={"main-inner-header " + (isOpen && "open")}>
+        <Link href="/">
+          <a className="link">home</a>
+        </Link>
+        <Link href="/about">
+          <a className="link">about</a>
+        </Link>
+        <Link href="/contributions">
+          <a className="link">contributions</a>
+        </Link>
+        <div className="mobile-contibution-btn">
+          <Button>Add Resource</Button>
+        </div>
       </div>
 
       <div className="contributes-button">
-        <Button>Contribute</Button>
+        <Button>Add Resource</Button>
       </div>
-
+      <div className={"mobile-overlay " + (isOpen && "open")}>
+        <button className="exit-header" onClick={() => setIsOpen(false)}>
+          <img src="media/exit.svg" alt="X" />
+        </button>
+      </div>
+      <button className={"add-resource-mobile " + (isOpen && "open")}>
+        <img src="media/addResource.svg" alt="ADD RESOURCE" />
+      </button>
       <style jsx global>{`
         .header {
+          max-width: 100%;
           width: 100vw;
-          padding: 30px 80px;
+          height: 100px;
+          padding: 0 50px;
           display: flex;
           flex-direction: row;
           align-items: center;
-          justify-content: center;
           box-sizing: border-box;
+          justify-content: space-between;
         }
-
         .header-title {
           box-sizing: border-box;
-          flex: 1;
           font-size: 24px;
           font-weight: 400;
           letter-spacing: 0.1em;
@@ -63,6 +68,7 @@ export default function Header() {
           text-decoration: none;
           display: flex;
           align-items: center;
+          width: 350px;
         }
         .header-title > img {
           margin-right: 14px;
@@ -70,7 +76,6 @@ export default function Header() {
 
         .main-inner-header {
           box-sizing: border-box;
-          flex: 1;
           display: flex;
           justify-content: center;
           flex-direction: row;
@@ -79,11 +84,130 @@ export default function Header() {
 
         .contributes-button {
           box-sizing: border-box;
-          flex: 1;
           display: flex;
           justify-content: flex-end;
+          width: 350px;
+        }
+
+        .link {
+          width: 200px;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          font-size: 18px;
+          font-weight: 400;
+          color: ${colors.BLACK};
+          text-decoration: none;
+        }
+        .link:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+
+        .mobile-contibution-btn {
+          display: none;
+          flex: 1;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding-bottom: 6px;
+        }
+        .open-menu {
+          display: none;
+        }
+
+        .mobile-overlay {
+          display: none;
+        }
+        .add-resource-mobile {
+          display: none;
+        }
+
+        @media screen and (max-width: 1000px) {
+          .header {
+            padding: 0 10px;
+            height: 60px;
+            border-bottom: solid 2px ${colors.PRIMARY_BLUE};
+          }
+          .header-title {
+            font-size: 1.34em;
+          }
+          .contributes-button {
+            display: none;
+          }
+          .main-inner-header {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 999;
+            width: calc(100vw - ${DRAWER_MARGIN}px);
+            background-color: ${colors.WHITE};
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 60px 20px 20px 20px;
+            transform: translateX(calc(100vw - ${DRAWER_MARGIN}px));
+            transition: 0.3s;
+          }
+          .main-inner-header.open {
+            transform: translateX(0);
+          }
+          .mobile-overlay {
+            position: fixed;
+            display: block;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 998;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+          }
+          .mobile-overlay.open {
+            pointer-events: auto;
+            opacity: 1;
+          }
+          .link {
+            text-align: left;
+            padding: 20px 0;
+            width: 100%;
+          }
+          .mobile-contibution-btn {
+            display: flex;
+          }
+          .open-menu {
+            display: block;
+          }
+          .exit-header {
+            position: absolute;
+            left: ${(DRAWER_MARGIN - 40) / 2}px;
+            top: 20px;
+            width: 40px;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            outline: none;
+          }
+          .add-resource-mobile {
+            z-index: 999;
+            position: fixed;
+            display: block;
+            right: 20px;
+            bottom: 20px;
+            border: none;
+            background-color: transparent;
+            outline: none;
+            transition: 0.3s;
+          }
+          .add-resource-mobile.open {
+            transform: translateX(calc(${DRAWER_MARGIN}px + 10px - 100vw));
+          }
         }
       `}</style>
     </div>
   );
 }
+
+const DRAWER_MARGIN = 70;

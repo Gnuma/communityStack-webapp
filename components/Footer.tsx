@@ -17,8 +17,9 @@ export default function Footer() {
       />
       <style jsx>{`
         .footer {
+          max-width: 100%;
           width: 100vw;
-          padding: 10px;
+          padding: 10px 0;
           box-sizing: border-box;
           background-color: ${colors.PRIMARY_BLUE};
           display: flex;
