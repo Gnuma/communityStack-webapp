@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import { NextPage } from "next";
 import { Tutorial, Topic as TopicType, Category } from "../../utils/types";
@@ -11,6 +11,8 @@ import {
 import TutorialLink from "../../components/TutorialLink";
 import { TutorialsList } from "../../components/TutorialsList";
 import NavigationHistory from "../../components/NavigationHistory";
+import { search_tutorials } from "../../utils/search_index";
+import SearchLayout from "../../layouts/SearchLayout";
 
 interface TopicProps {
   data: Tutorial[];
@@ -19,10 +21,36 @@ interface TopicProps {
 }
 
 const Topic: NextPage<TopicProps> = ({ data, category, topic }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+
+  search_tutorials.addDocuments(data);
+
+  const onSearch = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    if (!value) {
+      setSearchQuery("");
+      setFilteredData(data);
+    } else {
+      setSearchQuery(value);
+      setFilteredData(search_tutorials.search(value) as Tutorial[]);
+    }
+  };
+
+  useEffect(() => {}, []);
+
   return (
     <MainLayout>
       <NavigationHistory category={category} topic={topic} />
-      <TutorialsList data={data} />
+      <h3 className="title">Find your solution</h3>
+      <SearchLayout
+        callback={onSearch}
+        keyword={searchQuery}
+        placeholder="Find your solution"
+      >
+        <TutorialsList data={filteredData} />
+      </SearchLayout>
     </MainLayout>
   );
 };

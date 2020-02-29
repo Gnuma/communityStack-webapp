@@ -56,7 +56,8 @@ const About: NextPage<{}> = () => {
               }
 
               .about-content {
-                width: 700px;
+                max-width: 700px;
+                width: calc(100vw - 30px);
                 display: flex;
                 flex-direction: column;
                 align-items: center;

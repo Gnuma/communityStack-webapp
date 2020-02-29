@@ -16,6 +16,7 @@ const Category: NextPage<{ topics: Topic[]; category?: CategoryType }> = ({
 }) => {
   const [internal_topics, setTopics] = useState(topics);
   const [keyword, setKeyword] = useState("");
+
   search_topics.addDocuments(topics);
 
   const FilterTopics = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +32,12 @@ const Category: NextPage<{ topics: Topic[]; category?: CategoryType }> = ({
   return (
     <MainLayout>
       <NavigationHistory category={category} />
-      <SearchLayout callback={FilterTopics} keyword={keyword}>
+      <h3 className="title">Choose your topic</h3>
+      <SearchLayout
+        callback={FilterTopics}
+        keyword={keyword}
+        placeholder="Choose your topic"
+      >
         <MenuLayout topics={internal_topics} />
       </SearchLayout>
     </MainLayout>

@@ -37,7 +37,7 @@ const Contributions: NextPage<{ best_users: User[]; last_users: User[] }> = ({
               );
             })}
           </div>
-          <div className="leaderboard">
+          <div className="leaderboard latest-contributors">
             <span className="subtitle">latest contributors</span>
             {last_users.map(contributor => {
               return (
@@ -61,7 +61,8 @@ const Contributions: NextPage<{ best_users: User[]; last_users: User[] }> = ({
           }
 
           .contributions-container {
-            width: 700px;
+            max-width: 700px;
+            width: calc(100vw - 30px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -72,8 +73,9 @@ const Contributions: NextPage<{ best_users: User[]; last_users: User[] }> = ({
           }
 
           .leaderboards {
-            width: 700px;
-            margin-top: 50px;
+            max-width: 700px;
+            width: calc(100vw - 30px);
+            margin-top: 20px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -85,17 +87,9 @@ const Contributions: NextPage<{ best_users: User[]; last_users: User[] }> = ({
             align-items: flex-start;
           }
 
-          .leaderboard {
-
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-          }
-
           .leaderboard > * {
             margin: 5px;
           }
-
 
           .contributor-div {
             display: flex;
@@ -119,6 +113,15 @@ const Contributions: NextPage<{ best_users: User[]; last_users: User[] }> = ({
             text-transform: uppercase;
             color: ${colors.BLACK};
             letter-spacing: 0.1em;
+          }
+          @media screen and (max-width: 700px) {
+            .leaderboards {
+              flex-direction: column;
+              align-items: center;
+            }
+            .latest-contributors {
+              margin-top: 10px;
+            }
           }
         `}</style>
       </div>

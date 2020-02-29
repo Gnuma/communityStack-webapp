@@ -12,6 +12,7 @@ const Index: NextPage<{ categories: Category[] }> = ({ categories }) => {
   console.log("Render");
   return (
     <MainLayout>
+      <h3 className="title">Select your Category</h3>
       <CategoriesMenu data={categories} />
     </MainLayout>
   );
@@ -32,42 +33,42 @@ export default Index;
 const MockCategories: Category[] = [
   {
     id: 1,
-    name: "Primo"
+    name: "User Interface"
   },
   {
     id: 2,
-    name: "Secondo"
+    name: "Integrations"
   },
   {
     id: 3,
-    name: "Terzo"
+    name: "Testing"
   },
   {
     id: 4,
-    name: "Quarto"
+    name: "Navigation"
   },
   {
     id: 5,
-    name: "Quinto"
+    name: "Utils"
   },
   {
-    id: 3,
-    name: "Terzo"
-  },
-  {
-    id: 4,
-    name: "Quarto"
+    id: 6,
+    name: "State Managment"
   },
   {
     id: 5,
-    name: "Quinto"
+    name: "Utils"
   },
   {
-    id: 4,
-    name: "Quarto"
+    id: 6,
+    name: "State Managment"
   },
   {
     id: 5,
-    name: "Quinto"
+    name: "Utils"
+  },
+  {
+    id: 6,
+    name: "State Managment"
   }
 ];

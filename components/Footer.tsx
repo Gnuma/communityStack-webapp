@@ -19,8 +19,8 @@ export default function Footer() {
         <Link href="/about">
           <a>about</a>
         </Link>
-        <Link href="/contributors">
-          <a>contributors</a>
+        <Link href="/contributions">
+          <a>Contribution</a>
         </Link>
       </div>
       <div className="endLink">
@@ -28,7 +28,10 @@ export default function Footer() {
           <img src="/media/email.svg" alt="" />
           infocommunity@gmail.com
         </a>
-        <a href="https://github.com/Gnuma/communityStack-webapp.git">
+        <a
+          href="https://github.com/Gnuma/communityStack-webapp"
+          target="_BLANK"
+        >
           <img src="/media/github.svg" alt="" />
           github
         </a>

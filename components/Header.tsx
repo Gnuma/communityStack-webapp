@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import * as colors from "../utils/colors";
 import Button from "./Button";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState<string | number>("100vw");
+
+  const updateWindowWidth = () =>
+    setWindowWidth(
+      document.getElementsByTagName("body")[0].getBoundingClientRect().width
+    );
+
+  const getWindowWidth = () =>
+    typeof windowWidth === "string" ? windowWidth : windowWidth + "px";
+
+  useEffect(() => {
+    updateWindowWidth();
+    window.addEventListener("resize", updateWindowWidth);
+    return () => window.removeEventListener("resize", updateWindowWidth);
+  }, []);
+
   return (
     <div className="header">
       <Link href="/">
@@ -63,7 +79,7 @@ export default function Header() {
           font-size: 24px;
           font-weight: 400;
           letter-spacing: 0.1em;
-          color: ${colors.BLACK};
+          color: ${colors.PRIMARY_BLUE};
           box-sizing: border-box;
           text-decoration: none;
           display: flex;
@@ -140,13 +156,15 @@ export default function Header() {
             bottom: 0;
             right: 0;
             z-index: 999;
-            width: calc(100vw - ${DRAWER_MARGIN}px);
+            width: calc(${getWindowWidth()} - ${DRAWER_MARGIN}px);
             background-color: ${colors.WHITE};
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
             padding: 60px 20px 20px 20px;
-            transform: translateX(calc(100vw - ${DRAWER_MARGIN}px));
+            transform: translateX(
+              calc(${getWindowWidth()} - ${DRAWER_MARGIN}px)
+            );
             transition: 0.3s;
           }
           .main-inner-header.open {
@@ -202,7 +220,12 @@ export default function Header() {
             transition: 0.3s;
           }
           .add-resource-mobile.open {
-            transform: translateX(calc(${DRAWER_MARGIN}px + 10px - 100vw));
+            transform: translateX(
+              calc(
+                ${DRAWER_MARGIN}px - ${getWindowWidth()} + 20px -
+                  ${(DRAWER_MARGIN - ADD_RESOURCE_BTN_WIDTH) / 2}px
+              )
+            );
           }
         }
       `}</style>
@@ -211,3 +234,4 @@ export default function Header() {
 }
 
 const DRAWER_MARGIN = 70;
+const ADD_RESOURCE_BTN_WIDTH = 50;

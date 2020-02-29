@@ -22,9 +22,10 @@ export const TutorialsList: FunctionComponent<TutorialsListProps> = ({
         {`
           .tutorials-list {
             max-width: 800px;
-            width: calc(100vw - 50px);
+            width: calc(100vw - 30px);
             display: flex;
             flex-direction: column;
+            margin-top: 10px;
           }
         `}
       </style>

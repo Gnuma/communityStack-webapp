@@ -4,12 +4,14 @@ import * as colors from "../utils/colors";
 interface SearchLayoutProps {
   callback: (e: React.ChangeEvent<HTMLInputElement>) => void;
   keyword: string;
+  placeholder: string;
 }
 
 const SearchLayout: FunctionComponent<SearchLayoutProps> = ({
   children,
   callback,
-  keyword
+  keyword,
+  placeholder
 }) => {
   return (
     <div className="content-container">
@@ -18,7 +20,7 @@ const SearchLayout: FunctionComponent<SearchLayoutProps> = ({
           type="text"
           name="filter"
           className="search-field"
-          placeholder="Find your solutions ..."
+          placeholder={placeholder}
           value={keyword}
           onChange={callback}
         />
@@ -27,9 +29,8 @@ const SearchLayout: FunctionComponent<SearchLayoutProps> = ({
       <style jsx>
         {`
           .content-container {
-            width: 100%;
             max-width: 800px;
-            margin: 0 10px;
+            width: calc(100vw - 30px);
           }
           .search-field {
             width: 100%;

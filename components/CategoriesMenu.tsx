@@ -15,8 +15,8 @@ interface CategoriesMenuProps {
 
 const RADIUS = 200;
 
-const BUTTON_WIDTH = 100;
-const BUTTON_HEIGHT = 100;
+const BUTTON_WIDTH = 200;
+const BUTTON_HEIGHT = 46;
 const SEMI_HEIGHT = BUTTON_HEIGHT / 2;
 const SEMI_WIDTH = BUTTON_WIDTH / 2;
 const BUTTON_DIAGONAL = Math.sqrt(
@@ -49,6 +49,9 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
         bP.x -= BUTTON_WIDTH / 2;
         bP.y -= BUTTON_HEIGHT / 2;
 
+        bP.x += Math.cos(theta) * (SEMI_WIDTH + BUTTON_OFFSET);
+        bP.y += Math.sin(theta) * (SEMI_HEIGHT + BUTTON_OFFSET);
+        /*
         let thetaLessThanPiOverTwo = getThetaLessThanPiOverTwo(theta);
         if (Math.sin(theta) * Math.cos(theta) < 0)
           thetaLessThanPiOverTwo = Math.PI / 2 - thetaLessThanPiOverTwo; // HACK
@@ -63,15 +66,20 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
           dy = Math.sign(Math.cos(theta)) * (Math.tan(theta) * SEMI_WIDTH);
         }
         console.log(data[index].id + ": dx=" + dx + " dy=" + dy);
-        //bP.x += dx;
-        //bP.y += dy;
-        const cosTheta = Math.cos(item.theta);
-        const sinTheta = Math.sin(item.theta);
-        //bP.x += cosTheta * (BUTTON_WIDTH / 2 + BUTTON_OFFSET);
-        //bP.y += sinTheta * (BUTTON_HEIGHT / 2 + BUTTON_OFFSET);
-        bP.x += (Math.abs(dx) < 0.1 ? 0 : Math.sign(dx)) * BUTTON_OFFSET + dx;
-        bP.y += (Math.abs(dy) < 0.1 ? 0 : Math.sign(dy)) * BUTTON_OFFSET + dy;
-
+        const xOffset = BUTTON_OFFSET * (BUTTON_WIDTH / BUTTON_HEIGHT);
+        const yOffset = BUTTON_OFFSET * (BUTTON_HEIGHT / BUTTON_WIDTH);
+        bP.x += dx;
+        bP.y += dy;
+        let k;
+        if (Math.abs(Math.cos(theta)) < Math.abs(Math.sin(theta))) {
+          k = Math.cos(theta);
+        } else {
+          k = Math.sin(theta);
+        }
+        bP.x += k * xOffset;
+        bP.x += Math.cos(theta) * BUTTON_OFFSET;
+        bP.y += Math.sin(theta) * BUTTON_OFFSET;
+        */
         return (
           <div key={data[index].id}>
             <svg width={SIZE} height={SIZE} className="svg-canvas">
@@ -130,7 +138,7 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
             border-radius: 6px;
             color: ${colors.PRIMARY_BLUE};
             background-color: ${colors.WHITE};
-            background-color: transparent;
+            background-color: ${colors.WHITE};
             transition: 0.2s;
             font-size: 16px;
             box-sizing: border-box;

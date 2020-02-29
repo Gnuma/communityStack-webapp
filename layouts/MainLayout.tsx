@@ -22,8 +22,6 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
             box-sizing: border-box;
           }
           .content {
-            padding-top: 50px;
-            padding-bottom: 150px;
             min-height: calc(100vh - 100px);
             max-width: 100%;
             width: 100vw;
@@ -33,6 +31,7 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
             box-sizing: border-box;
             overflow-x: hidden;
             position: relative;
+            margin-bottom: 10px;
           }
 
           .uppercase {
@@ -45,6 +44,10 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
             letter-spacing: 0.1em;
             color: ${colors.PRIMARY_BLUE};
             font-size: 24px;
+            font-weight: 300;
+            margin: 0;
+            padding: 0 20px 20px 20px;
+            text-align: center;
           }
 
           .subtitle {
@@ -61,7 +64,6 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
 
           @media screen and (max-width: 1000px) {
             .content {
-              padding: 20px 0;
               min-height: calc(100vh - 60px);
             }
           }

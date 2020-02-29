@@ -56,7 +56,6 @@ export default function NavigationHistory({
     <div className="container" id="navigation-container">
       <Media queries={{ small: "(max-width: 1350px)" }}>
         {matches => {
-          console.log(matches.small);
           return !matches.small ? (
             <Fragment>
               <Link href={`/categories/${category.id}`}>
@@ -144,7 +143,7 @@ export default function NavigationHistory({
         }
         .path-container {
           max-width: 800px;
-          width: calc(100vw - 50px);
+          width: calc(100vw - 30px);
         }
         .path-container > a {
           text-transform: uppercase;
