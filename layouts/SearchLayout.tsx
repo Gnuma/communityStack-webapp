@@ -12,46 +12,35 @@ const SearchLayout: FunctionComponent<SearchLayoutProps> = ({
   keyword
 }) => {
   return (
-    <div>
+    <div className="content-container">
       <div className="search-div">
-        <form>
-          <input
-            type="text"
-            name="filter"
-            className="search-field"
-            placeholder="Filter here..."
-            value={keyword}
-            onChange={callback}
-          />
-        </form>
+        <input
+          type="text"
+          name="filter"
+          className="search-field"
+          placeholder="Find your solutions ..."
+          value={keyword}
+          onChange={callback}
+        />
         {children}
       </div>
       <style jsx>
         {`
-            .search-div{
-                display: :flex;
-                flex-direction: column;
-                justify-content: center;
-                witdh:1000px;
-            }
-
-            .search-div > form{
-                width:100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                margin-bottom: 50px;
-            }
-
-            .search-field{
-                font-size:18px;
-                width:100%;
-                border-radius:5px;
-                height: 40px;
-                border: 1px solid ${colors.BLACK};
-                padding-left: 15px;
-            }
-          `}
+          .content-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 10px;
+          }
+          .search-field {
+            width: 100%;
+            font-size: 18px;
+            border-radius: 5px;
+            height: 40px;
+            border: 1px solid ${colors.BLACK};
+            padding-left: 15px;
+            margin-bottom: 10px;
+          }
+        `}
       </style>
     </div>
   );

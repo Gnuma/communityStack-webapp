@@ -39,15 +39,35 @@ const MockCategories: Category[] = [
     name: "Secondo"
   },
   {
-    id: 2,
-    name: "Secondo"
+    id: 3,
+    name: "Terzo"
   },
   {
-    id: 2,
-    name: "Secondo"
+    id: 4,
+    name: "Quarto"
   },
   {
-    id: 2,
-    name: "Secondo"
+    id: 5,
+    name: "Quinto"
+  },
+  {
+    id: 3,
+    name: "Terzo"
+  },
+  {
+    id: 4,
+    name: "Quarto"
+  },
+  {
+    id: 5,
+    name: "Quinto"
+  },
+  {
+    id: 4,
+    name: "Quarto"
+  },
+  {
+    id: 5,
+    name: "Quinto"
   }
 ];

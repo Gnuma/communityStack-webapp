@@ -28,9 +28,11 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
             max-width: 100%;
             width: 100vw;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             box-sizing: border-box;
             overflow-x: hidden;
+            position: relative;
           }
 
           .uppercase {
@@ -55,6 +57,13 @@ const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
           button {
             border: none;
             background-color: transparent;
+          }
+
+          @media screen and (max-width: 1000px) {
+            .content {
+              padding: 20px 0;
+              min-height: calc(100vh - 60px);
+            }
           }
         `}
       </style>

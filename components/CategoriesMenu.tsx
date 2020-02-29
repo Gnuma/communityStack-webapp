@@ -14,13 +14,18 @@ interface CategoriesMenuProps {
 //<Logo x={p.x} y={SIZE - p.y} fill={false} />
 
 const RADIUS = 200;
-const BUTTON_WIDTH = 200;
-const BUTTON_HEIGHT = 46;
+
+const BUTTON_WIDTH = 100;
+const BUTTON_HEIGHT = 100;
+const SEMI_HEIGHT = BUTTON_HEIGHT / 2;
+const SEMI_WIDTH = BUTTON_WIDTH / 2;
 const BUTTON_DIAGONAL = Math.sqrt(
   Math.pow(BUTTON_WIDTH, 2) + Math.pow(BUTTON_HEIGHT, 2)
 );
+const SPLIT_THETA = Math.acos(BUTTON_WIDTH / BUTTON_DIAGONAL);
+
 const SIZE = RADIUS * 2;
-const BUTTON_OFFSET = 30;
+const BUTTON_OFFSET = 20;
 const PADDING = 15;
 
 const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
@@ -40,19 +45,32 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
       {coordinates.map((item, index) => {
         const p: PointType = getXYFromCenter(center, item);
         const bP = { ...p };
+        const { theta } = item;
         bP.x -= BUTTON_WIDTH / 2;
         bP.y -= BUTTON_HEIGHT / 2;
+
+        let thetaLessThanPiOverTwo = getThetaLessThanPiOverTwo(theta);
+        if (Math.sin(theta) * Math.cos(theta) < 0)
+          thetaLessThanPiOverTwo = Math.PI / 2 - thetaLessThanPiOverTwo; // HACK
+        console.log(Math.sign(Math.sin(theta)));
+        let dx, dy;
+        if (thetaLessThanPiOverTwo >= SPLIT_THETA) {
+          dy = Math.sign(Math.sin(theta)) * SEMI_HEIGHT;
+          dx =
+            Math.sign(Math.sin(theta)) * ((1 / Math.tan(theta)) * SEMI_HEIGHT);
+        } else {
+          dx = Math.sign(Math.cos(theta)) * SEMI_WIDTH;
+          dy = Math.sign(Math.cos(theta)) * (Math.tan(theta) * SEMI_WIDTH);
+        }
+        console.log(data[index].id + ": dx=" + dx + " dy=" + dy);
+        //bP.x += dx;
+        //bP.y += dy;
         const cosTheta = Math.cos(item.theta);
         const sinTheta = Math.sin(item.theta);
-        bP.x += cosTheta * (BUTTON_WIDTH / 2 + BUTTON_OFFSET);
-        bP.y += sinTheta * (BUTTON_HEIGHT / 2 + BUTTON_OFFSET);
-        /*--Bad Math
-        const cosSign = Math.sign(cosTheta);
-        const sinSign = Math.sign(sinTheta);
-        const rectTrig = Math.min(Math.abs(cosTheta), Math.abs(sinTheta));
-        bP.x += cosSign * rectTrig * ((BUTTON_DIAGONAL - BUTTON_WIDTH) / 2);
-        bP.y += sinSign * rectTrig * ((BUTTON_DIAGONAL - BUTTON_HEIGHT) / 2);
-        --Bad Math */
+        //bP.x += cosTheta * (BUTTON_WIDTH / 2 + BUTTON_OFFSET);
+        //bP.y += sinTheta * (BUTTON_HEIGHT / 2 + BUTTON_OFFSET);
+        bP.x += (Math.abs(dx) < 0.1 ? 0 : Math.sign(dx)) * BUTTON_OFFSET + dx;
+        bP.y += (Math.abs(dy) < 0.1 ? 0 : Math.sign(dy)) * BUTTON_OFFSET + dy;
 
         return (
           <div key={data[index].id}>
@@ -78,8 +96,9 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
           </div>
         );
       })}
-      <Logo x={center.x} y={SIZE - center.y} />
-
+      <svg width={SIZE} height={SIZE} className="svg-canvas">
+        <Logo x={center.x} y={SIZE - center.y} />
+      </svg>
       <style jsx>
         {`
           .categories-container {
@@ -103,13 +122,14 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
             background-color: red;
           }
           .category-button {
+            z-index: 1;
             transition: 0.3s;
             border: solid 2px ${colors.PRIMARY_BLUE};
             width: ${BUTTON_WIDTH}px;
             height: ${BUTTON_HEIGHT}px;
-            //border-radius: 100%;
+            border-radius: 6px;
             color: ${colors.PRIMARY_BLUE};
-            //background-color: ${colors.WHITE};
+            background-color: ${colors.WHITE};
             background-color: transparent;
             transition: 0.2s;
             font-size: 16px;
@@ -134,6 +154,11 @@ const getXYFromCenter = (center: PointType, point: PointType): PointType => ({
   x: center.x + point.x,
   y: center.y + point.y
 });
+
+const getThetaLessThanPiOverTwo = (theta: number) => {
+  while (theta > Math.PI / 2) theta -= Math.PI / 2;
+  return theta;
+};
 
 interface LogoProps {
   x: number;

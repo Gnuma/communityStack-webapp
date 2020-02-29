@@ -153,6 +153,14 @@ const TutorialLink: FunctionComponent<TutorialLinkProps> = ({
           align-items: center;
           padding-top: 5px;
         }
+        @media screen and (max-width: 800px) {
+          .tutorial-content > h2 {
+            -webkit-line-clamp: 2;
+          }
+          .tutorial-content {
+            max-height: 80px;
+          }
+        }
       `}</style>
     </div>
   );

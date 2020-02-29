@@ -1,54 +1,102 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Topic } from "../utils/types";
 import * as colors from "../utils/colors";
+import Link from "next/link";
 
 interface MenuLayoutProps {
   topics: Topic[];
 }
-
 const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
+  const [columns, setColumns] = useState(2);
+
+  const handleResize = () => {
+    console.log(getWindowDimensions().width, columns);
+    if (getWindowDimensions().width < 600) {
+      setColumns(1);
+      console.log(columns);
+    } else {
+      setColumns(2);
+      console.log(columns);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  console.log(columns);
+
+  const rows: Topic[][] = [];
+  topics.forEach((topic, index) => {
+    if (index % columns === 0) rows.push([topic]);
+    else rows[rows.length - 1].push(topic);
+  });
+
   return (
-    <div className="main-menu-container w3-animate-fading">
-      {
-        topics.map(topic => {
+    <div className="main-menu-container">
+      {rows.map((row, rowIndex) => {
+        const sizes = row.map(topic => topic.name.length);
         return (
-          <div className="menu-item">
-            <span className="uppercase item-title">{topic.name}</span>
-            <span className="topic-description">{topic.description}</span>
+          <div className="row" key={rowIndex}>
+            {row.map((item, index) => {
+              const total = sizes.reduce((tot, value) => (tot += value), 0);
+              const sizeWeight = 2;
+              const minFlex = 1 / (sizes.length + sizeWeight);
+              const flex =
+                minFlex + (sizes[index] / total) * (minFlex * sizeWeight);
+              console.log(flex);
+              return (
+                <Link href={`/topic/${item.id}`} key={item.id}>
+                  <div
+                    className="menu-item"
+                    style={{
+                      flex,
+                      marginRight: index != row.length - 1 ? "10px" : "0"
+                    }}
+                  >
+                    <span className="uppercase item-title">{item.name}</span>
+                    <span className="topic-description">
+                      {item.description}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         );
       })}
       <style jsx>
         {`
           .main-menu-container {
-            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: content-box;
+          }
+
+          .row {
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
-            width: 1000px;
-            min-height: 10px;
-            align-items: flex-start;
-            align-content: flex-start;
-            justify-content: center;
           }
 
           .menu-item {
+            flex: 1;
             border: 2px solid;
             border-radius: 5px;
             border-color: ${colors.PRIMARY_BLUE};
-            margin: 10px;
+            margin-top: 10px;
             padding: 10px;
             display: flex;
             flex-direction: column;
           }
 
           .item-title {
-            padding: 10px;
+            padding-bottom: 10px;
             font-size: 20px;
           }
 
           .topic-description {
-            padding: 5px;
             font-size: 15px;
           }
 
@@ -64,6 +112,10 @@ const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
           .menu-item:hover > span {
             color: ${colors.WHITE};
           }
+
+          .spacer {
+            width: 10px;
+          }
         `}
       </style>
     </div>
@@ -71,3 +123,11 @@ const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
 };
 
 export default MenuLayout;
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}

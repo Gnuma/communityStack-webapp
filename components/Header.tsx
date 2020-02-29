@@ -18,7 +18,7 @@ export default function Header() {
         style={{ padding: "10px" }}
         className="open-menu"
       >
-        <img src="media/menu.svg" alt="MENU" />
+        <img src="/media/menu.svg" alt="MENU" />
       </button>
       <div className={"main-inner-header " + (isOpen && "open")}>
         <Link href="/">
@@ -40,11 +40,11 @@ export default function Header() {
       </div>
       <div className={"mobile-overlay " + (isOpen && "open")}>
         <button className="exit-header" onClick={() => setIsOpen(false)}>
-          <img src="media/exit.svg" alt="X" />
+          <img src="/media/exit.svg" alt="X" />
         </button>
       </div>
       <button className={"add-resource-mobile " + (isOpen && "open")}>
-        <img src="media/addResource.svg" alt="ADD RESOURCE" />
+        <img src="/media/addResource.svg" alt="ADD RESOURCE" />
       </button>
       <style jsx global>{`
         .header {
