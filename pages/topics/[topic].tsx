@@ -1,34 +1,55 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import { NextPage } from "next";
-import { Tutorial } from "../../utils/types";
+import { Tutorial, Topic as TopicType, Category } from "../../utils/types";
 import axios from "axios";
-import { TUTORIALS_RETRIEVE } from "../../utils/endpoints";
+import {
+  TUTORIALS_RETRIEVE,
+  TOPIC_DETAIL,
+  CATEGORIES_RETRIEVE
+} from "../../utils/endpoints";
 import TutorialLink from "../../components/TutorialLink";
 import { TutorialsList } from "../../components/TutorialsList";
-import { Search } from "js-search";
+import NavigationHistory from "../../components/NavigationHistory";
+import { search_tutorials } from "../../utils/search_index";
 import SearchLayout from "../../layouts/SearchLayout";
-import {search_tutorials} from "../../utils/search_index";
 
-const Topic: NextPage<{ data: Tutorial[] }> = ({ data }) => {
-  const [keyword, setKeyword] = useState("");
-  console.log(data);
+interface TopicProps {
+  data: Tutorial[];
+  topic?: TopicType;
+  category?: Category;
+}
+
+const Topic: NextPage<TopicProps> = ({ data, category, topic }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+
   search_tutorials.addDocuments(data);
 
-  data = !keyword ? data : search_tutorials.search(keyword) as Tutorial[];
-
-  const FilterTutorials = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.value === ""){
-      setKeyword("");
-    }else{
-      setKeyword(e.target.value);
+  const onSearch = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    if (!value) {
+      setSearchQuery("");
+      setFilteredData(data);
+    } else {
+      setSearchQuery(value);
+      setFilteredData(search_tutorials.search(value) as Tutorial[]);
     }
-  }
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <MainLayout>
-      <SearchLayout callback = {FilterTutorials} keyword = {keyword}>
-        <TutorialsList data={data} />
+      <NavigationHistory category={category} topic={topic} />
+      <h3 className="title">Find your solution</h3>
+      <SearchLayout
+        callback={onSearch}
+        keyword={searchQuery}
+        placeholder="Find your solution"
+      >
+        <TutorialsList data={filteredData} />
       </SearchLayout>
     </MainLayout>
   );
@@ -37,13 +58,20 @@ const Topic: NextPage<{ data: Tutorial[] }> = ({ data }) => {
 Topic.getInitialProps = async ({ query }) => {
   const topic = query.topic;
   let results: Tutorial[] = [];
-
+  let topicDetail: TopicType | undefined;
+  let categoryDetail: Category | undefined;
   try {
     results = (await axios.get(TUTORIALS_RETRIEVE + topic)).data;
+    topicDetail = (await axios.get(TOPIC_DETAIL + topic)).data;
+    if (!topicDetail) throw "can't retrieve detail";
+    categoryDetail = (
+      await axios.get(CATEGORIES_RETRIEVE + topicDetail.category)
+    ).data;
+    if (!categoryDetail) throw "can't retrieve detail";
   } catch (err) {
     console.log(err);
   }
-  return { data: results };
+  return { data: results, topic: topicDetail, category: categoryDetail };
 };
 
 export default Topic;
