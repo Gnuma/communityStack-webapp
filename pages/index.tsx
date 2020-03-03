@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import "../utils/initializeGA";
 import MainLayout from "../layouts/MainLayout";
 import { NextPage } from "next";
 import Link from "next/link";
@@ -46,22 +47,6 @@ const MockCategories: Category[] = [
   {
     id: 4,
     name: "Navigation"
-  },
-  {
-    id: 5,
-    name: "Utils"
-  },
-  {
-    id: 6,
-    name: "State Managment"
-  },
-  {
-    id: 5,
-    name: "Utils"
-  },
-  {
-    id: 6,
-    name: "State Managment"
   },
   {
     id: 5,

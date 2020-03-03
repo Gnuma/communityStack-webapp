@@ -49,8 +49,16 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
         bP.x -= BUTTON_WIDTH / 2;
         bP.y -= BUTTON_HEIGHT / 2;
 
-        bP.x += Math.cos(theta) * (SEMI_WIDTH + BUTTON_OFFSET);
-        bP.y += Math.sin(theta) * (SEMI_HEIGHT + BUTTON_OFFSET);
+        const dx =
+          Math.abs(Math.cos(theta)) < 0.01
+            ? 0
+            : Math.sign(Math.cos(theta)) * (SEMI_WIDTH + BUTTON_OFFSET);
+        const dy = Math.sin(theta) * (SEMI_HEIGHT + BUTTON_OFFSET);
+
+        const addDx = (1 / Math.tan(theta)) * (SEMI_HEIGHT - dy);
+
+        bP.x += dx;
+        bP.y += dy;
         /*
         let thetaLessThanPiOverTwo = getThetaLessThanPiOverTwo(theta);
         if (Math.sin(theta) * Math.cos(theta) < 0)
@@ -137,8 +145,7 @@ const CategoriesMenu: FunctionComponent<CategoriesMenuProps> = ({ data }) => {
             height: ${BUTTON_HEIGHT}px;
             border-radius: 6px;
             color: ${colors.PRIMARY_BLUE};
-            background-color: ${colors.WHITE};
-            background-color: ${colors.WHITE};
+            background-color: transparent;
             transition: 0.2s;
             font-size: 16px;
             box-sizing: border-box;
