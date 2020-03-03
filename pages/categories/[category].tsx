@@ -25,7 +25,7 @@ const Category: NextPage<{topics : Topic[]}> = ({topics}) => {
   return (
     <MainLayout> 
       <SearchLayout callback = {FilterTopics} keyword = {keyword}>
-        <MenuLayout topics = {topics} />
+        <MenuLayout topics = {topics} callback = {() => {}} />
       </SearchLayout>
     </MainLayout>
   );

@@ -4,15 +4,16 @@ import * as colors from "../utils/colors";
 
 interface MenuLayoutProps {
   topics: Topic[];
+  callback: CallableFunction;
 }
 
-const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
+const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics, callback }) => {
   return (
     <div className="main-menu-container w3-animate-fading">
       {
         topics.map(topic => {
         return (
-          <div className="menu-item">
+          <div className="menu-item" onClick = {() => {callback(topic.id)}}>
             <span className="uppercase item-title">{topic.name}</span>
             <span className="topic-description">{topic.description}</span>
           </div>

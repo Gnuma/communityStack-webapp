@@ -1,10 +1,24 @@
-import React from "react";
+import React, {useState, FunctionComponent} from "react";
 import { default as NextLink } from "next/link";
 import Link from "../components/Link";
 import * as colors from "../utils/colors";
 import Button from "./Button";
+import ReactModal from "react-modal";
+import { Category } from "../utils/types";
+import ModalComponent from "./ModalComponent";
 
-export default function Header() {
+
+const Header: FunctionComponent<{}> = () => {
+  const [modalOpen, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  }
+
+  const closeModal = () => {
+    setModal(false);
+  }
+
   return (
     <div className="header">
       <NextLink href="/">
@@ -38,10 +52,28 @@ export default function Header() {
       </div>
 
       <div className="contributes-button">
-        <Button>Contribute</Button>
+        <Button onClick={openModal}>Contribute</Button>
       </div>
 
+      <ReactModal isOpen = {modalOpen} shouldCloseOnEsc = {true} onRequestClose={closeModal} className="contribute-modal">
+        <ModalComponent />
+      </ReactModal>
+
       <style jsx global>{`
+
+        .contribute-modal {
+          outline: none;
+          width:40%;
+          padding: 1px;
+          border: 1px solid ${colors.BLACK};
+          margin: 10% auto;
+          background-color: ${colors.WHITE};
+          border-radius: 3px;
+          height: 40%;
+          display: flex;
+          flex-direction: row;
+        }
+
         .header {
           width: 100vw;
           padding: 30px 80px;
@@ -87,3 +119,5 @@ export default function Header() {
     </div>
   );
 }
+
+export default Header;

@@ -32,7 +32,7 @@ const SearchLayout: FunctionComponent<SearchLayoutProps> = ({
                 display: :flex;
                 flex-direction: column;
                 justify-content: center;
-                witdh:1000px;
+                witdh: 100%;
             }
 
             .search-div > form{
@@ -44,12 +44,12 @@ const SearchLayout: FunctionComponent<SearchLayoutProps> = ({
             }
 
             .search-field{
-                font-size:18px;
+                font-size: 18px;
                 width:100%;
                 border-radius:5px;
                 height: 40px;
                 border: 1px solid ${colors.BLACK};
-                padding-left: 15px;
+                padding-left: 2%;
             }
           `}
       </style>

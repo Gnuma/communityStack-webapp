@@ -2,13 +2,15 @@ import React, { FunctionComponent } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import * as colors from "../utils/colors";
+import { Category } from "../utils/types";
 
-interface MainLayoutProps {}
+interface MainLayoutProps {
+}
 
 const MainLayout: FunctionComponent<MainLayoutProps> = ({ children }) => {
   return (
     <div>
-      <Header />
+      <Header/>
       <div className="content">{children}</div>
       <Footer />
       <style jsx global>
