@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NextPage } from "next";
 import { Topic } from "../../utils/types";
 import axios from "axios";
@@ -6,9 +6,11 @@ import { TOPICS_RETRIEVE, CATEGORIES_RETRIEVE } from "../../utils/endpoints";
 import MainLayout from "../../layouts/MainLayout";
 import MenuLayout from "../../layouts/MenuLayout";
 import SearchLayout from "../../layouts/SearchLayout";
-import { search_topics } from "../../utils/search_index";
+import { createTopicSearcher } from "../../utils/search_index";
 import { Category as CategoryType } from "../../utils/types";
 import NavigationHistory from "../../components/NavigationHistory";
+
+const topicSearcher = createTopicSearcher();
 
 const Category: NextPage<{ topics: Topic[]; category?: CategoryType }> = ({
   topics,
@@ -16,15 +18,14 @@ const Category: NextPage<{ topics: Topic[]; category?: CategoryType }> = ({
 }) => {
   const [internal_topics, setTopics] = useState(topics);
   const [keyword, setKeyword] = useState("");
-
-  search_topics.addDocuments(topics);
+  topicSearcher.addDocuments(topics);
 
   const FilterTopics = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value == "") {
       setTopics(topics);
       setKeyword("");
     } else {
-      setTopics(search_topics.search(e.target.value) as Topic[]);
+      setTopics(topicSearcher.search(e.target.value) as Topic[]);
       setKeyword(e.target.value);
     }
   };

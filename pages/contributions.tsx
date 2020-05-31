@@ -140,7 +140,6 @@ Contributions.getInitialProps = async () => {
     // do nothing for now.
   }
 
-  console.log(best_users);
   return {
     best_users: best_users,
     last_users: last_users

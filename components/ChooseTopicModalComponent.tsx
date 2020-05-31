@@ -17,7 +17,9 @@ const ChooseTopicModalComponent: FunctionComponent<ChoosechooseTopicModalCompone
 }) => {
   const [topics, setTopics] = useState([]);
   const [keyword, setKeyword] = useState("");
-  let topics_nonstate = !keyword ? topics : search_topics.search(keyword) as Topic[];
+  let topics_nonstate = !keyword
+    ? topics
+    : (search_topics.search(keyword) as Topic[]);
   console.log(topics_nonstate);
   useEffect(() => {
     const getTopics = async () => {
@@ -37,20 +39,22 @@ const ChooseTopicModalComponent: FunctionComponent<ChoosechooseTopicModalCompone
   };
 
   return (
-    <div className = "choose-modal">
-    <SearchLayout callback={FilterTopics} keyword={keyword}>
-      <MenuLayout topics = {topics_nonstate} callback = {callback} />
-    </SearchLayout>
-    <style jsx>
-      {`
-        .choose-modal {
-          overflow: none;
-          width: 100%;
-          height: 100%;
-          padding: 5px;
-        }
-      `}
-    </style>
+    <div className="choose-modal">
+      <SearchLayout
+        callback={FilterTopics}
+        keyword={keyword}
+        placeholder="Test"
+      ></SearchLayout>
+      <style jsx>
+        {`
+          .choose-modal {
+            overflow: none;
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+          }
+        `}
+      </style>
     </div>
   );
 };

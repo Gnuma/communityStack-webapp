@@ -1,9 +1,15 @@
 import * as Search from "js-search";
 
-export const search_topics = new Search.Search("id");
-search_topics.addIndex("name");
-search_topics.addIndex("description");
+export const createTopicSearcher = () => {
+  const search_topics = new Search.Search("id");
+  search_topics.addIndex("name");
+  search_topics.addIndex("description");
+  return search_topics;
+};
 
-export const search_tutorials = new Search.Search("id");
-search_tutorials.addIndex("title");
-search_tutorials.addIndex("abstract");
+export const createTutorialSearcher = () => {
+  const search_tutorials = new Search.Search("id");
+  search_tutorials.addIndex("title");
+  search_tutorials.addIndex("abstract");
+  return search_tutorials;
+};

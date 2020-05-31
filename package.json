@@ -22,14 +22,15 @@
   "dependencies": {
     "@types/js-search": "^1.4.0",
     "axios": "^0.19.2",
+    "immutability-helper": "^3.0.1",
     "js-search": "^1.4.3",
     "next": "^9.2.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-ga": "^2.7.0",
     "react-media": "^1.10.0",
-    "w3-css": "^4.1.0",
-    "react-modal": "^3.11.1"
+    "react-modal": "^3.11.1",
+    "w3-css": "^4.1.0"
   },
   "devDependencies": {
     "@types/node": "^13.7.1",

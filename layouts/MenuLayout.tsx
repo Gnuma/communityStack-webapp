@@ -10,13 +10,10 @@ const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
   const [columns, setColumns] = useState(2);
 
   const handleResize = () => {
-    console.log(getWindowDimensions().width, columns);
     if (getWindowDimensions().width < 600) {
       setColumns(1);
-      console.log(columns);
     } else {
       setColumns(2);
-      console.log(columns);
     }
   };
 
@@ -25,8 +22,6 @@ const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  console.log(columns);
 
   const rows: Topic[][] = [];
   topics.forEach((topic, index) => {
@@ -46,7 +41,6 @@ const MenuLayout: FunctionComponent<MenuLayoutProps> = ({ topics }) => {
               const minFlex = 1 / (sizes.length + sizeWeight);
               const flex =
                 minFlex + (sizes[index] / total) * (minFlex * sizeWeight);
-              console.log(flex);
               return (
                 <Link href={`/topic/${item.id}`} key={item.id}>
                   <div

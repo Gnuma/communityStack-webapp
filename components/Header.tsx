@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import * as colors from "../utils/colors";
 import Button from "./Button";
+import AddResourceButton from "./AddResourceButton";
 
-export default function Header() {
+export default function Header({ openModal }: { openModal: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState<string | number>("100vw");
 
@@ -47,21 +48,22 @@ export default function Header() {
           <a className="link">contributions</a>
         </Link>
         <div className="mobile-contibution-btn">
-          <Button>Add Resource</Button>
+          <Button onClick={openModal}>Add Resource</Button>
         </div>
       </div>
 
       <div className="contributes-button">
-        <Button>Add Resource</Button>
+        <Button onClick={openModal}>Add Resource</Button>
       </div>
       <div className={"mobile-overlay " + (isOpen && "open")}>
         <button className="exit-header" onClick={() => setIsOpen(false)}>
           <img src="/media/exit.svg" alt="X" />
         </button>
       </div>
-      <button className={"add-resource-mobile " + (isOpen && "open")}>
-        <img src="/media/addResource.svg" alt="ADD RESOURCE" />
-      </button>
+      <AddResourceButton
+        onClick={openModal}
+        className={"add-resource-mobile " + (isOpen && "open")}
+      />
       <style jsx global>{`
         .header {
           max-width: 100%;
@@ -132,9 +134,6 @@ export default function Header() {
         }
 
         .mobile-overlay {
-          display: none;
-        }
-        .add-resource-mobile {
           display: none;
         }
 
@@ -208,27 +207,36 @@ export default function Header() {
             padding: 0;
             outline: none;
           }
-          .add-resource-mobile {
-            z-index: 999;
-            position: fixed;
-            display: block;
-            right: 20px;
-            bottom: 20px;
-            border: none;
-            background-color: transparent;
-            outline: none;
-            transition: 0.3s;
-          }
-          .add-resource-mobile.open {
-            transform: translateX(
-              calc(
-                ${DRAWER_MARGIN}px - ${getWindowWidth()} + 20px -
-                  ${(DRAWER_MARGIN - ADD_RESOURCE_BTN_WIDTH) / 2}px
-              )
-            );
-          }
         }
       `}</style>
+      <style jsx global>
+        {`
+          .add-resource-mobile {
+            display: none;
+          }
+          @media screen and (max-width: 1000px) {
+            .add-resource-mobile {
+              z-index: 999;
+              position: fixed;
+              display: block;
+              right: 20px;
+              bottom: 20px;
+              border: none;
+              background-color: white;
+              outline: none;
+              transition: 0.3s;
+            }
+            .add-resource-mobile.open {
+              transform: translateX(
+                calc(
+                  ${DRAWER_MARGIN}px - ${getWindowWidth()} + 20px -
+                    ${(DRAWER_MARGIN - ADD_RESOURCE_BTN_WIDTH) / 2}px
+                )
+              );
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }
